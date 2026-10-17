@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Registro Comercial</title>
+<meta name="apple-mobile-web-app-title" content="Registro Comercial">
+<meta name="application-name" content="Registro Comercial">
+<meta name="theme-color" content="#CC1525">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<style>
+  body{margin:0;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;
+       background:linear-gradient(135deg,#CC1525,#A80F1C);color:#fff;font-family:-apple-system,Roboto,Arial,sans-serif;text-align:center;padding:24px;box-sizing:border-box}
+  img{width:120px;height:120px;border-radius:28px;border:4px solid #F5A800}
+  h1{font-size:22px;margin:0}
+  a{display:inline-block;background:#F5A800;color:#1A1A1A;font-weight:800;text-decoration:none;padding:16px 28px;border-radius:16px;font-size:18px}
+  p{font-size:14px;opacity:.9;max-width:320px;line-height:1.4;margin:0}
+</style>
+</head>
+<body>
+  <img src="icon-180.png" alt="La Villa">
+  <h1>La Villa · Registro Comercial</h1>
+  <a id="ir" href="https://script.google.com/macros/s/AKfycbx5vCscDs-pavVOmQkDYQHTUHu8NtazsXcdHpx3aLo8pPxQH2ST9z45zXc7T7uSF2rExw/exec">Entrar</a>
+  <p id="ayuda">Abriendo…</p>
+<script>
+  // Si se abrió desde el ícono de la pantalla de inicio, entra directo a la app.
+  // Si se abrió en el navegador (para instalar el ícono), muestra cómo agregarlo.
+  var app = 'https://script.google.com/macros/s/AKfycbx5vCscDs-pavVOmQkDYQHTUHu8NtazsXcdHpx3aLo8pPxQH2ST9z45zXc7T7uSF2rExw/exec';
+  var instalado = window.navigator.standalone === true || window.matchMedia('(display-mode: standalone)').matches;
+  var desdeIcono = instalado || location.hash === '#app';
+  if (desdeIcono) { location.replace(app); }
+  else {
+    var ios = /iphone|ipad|ipod/i.test(navigator.userAgent);
+    document.getElementById('ayuda').innerHTML = ios
+      ? 'Para dejar el ícono en su celular: toque <b>Compartir</b> (cuadro con flecha) y luego <b>Agregar a inicio</b>.'
+      : 'Para dejar el ícono en su celular: toque el menú <b>⋮</b> y luego <b>Agregar a la pantalla principal</b> (o <b>Instalar app</b>).';
+  }
+</script>
+</body>
+</html>
