@@ -23,8 +23,19 @@
   <img src="icon-180.png" alt="La Villa">
   <h1>La Villa · Registro Comercial</h1>
   <a id="ir" href="https://script.google.com/macros/s/AKfycbx5vCscDs-pavVOmQkDYQHTUHu8NtazsXcdHpx3aLo8pPxQH2ST9z45zXc7T7uSF2rExw/exec">Entrar</a>
+  <button id="instalar" style="display:none;background:#fff;color:#CC1525;font-weight:800;border:0;padding:16px 28px;border-radius:16px;font-size:18px">📲 Instalar en este celular</button>
   <p id="ayuda">Abriendo…</p>
 <script>
+  if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(function(){});
+  var aviso = null;
+  window.addEventListener('beforeinstallprompt', function (e) {
+    e.preventDefault(); aviso = e;
+    var b = document.getElementById('instalar'); b.style.display = 'inline-block';
+    b.onclick = function () { aviso.prompt(); aviso.userChoice.then(function () { b.style.display = 'none'; }); };
+  });
+  window.addEventListener('appinstalled', function () {
+    document.getElementById('ayuda').innerHTML = '✓ Listo. Ya puede abrir <b>La Villa</b> desde la pantalla de inicio.';
+  });
   // Si se abrió desde el ícono de la pantalla de inicio, entra directo a la app.
   // Si se abrió en el navegador (para instalar el ícono), muestra cómo agregarlo.
   var app = 'https://script.google.com/macros/s/AKfycbx5vCscDs-pavVOmQkDYQHTUHu8NtazsXcdHpx3aLo8pPxQH2ST9z45zXc7T7uSF2rExw/exec';
@@ -35,7 +46,7 @@
     var ios = /iphone|ipad|ipod/i.test(navigator.userAgent);
     document.getElementById('ayuda').innerHTML = ios
       ? 'Para dejar el ícono en su celular: toque <b>Compartir</b> (cuadro con flecha) y luego <b>Agregar a inicio</b>.'
-      : 'Para dejar el ícono en su celular: toque el menú <b>⋮</b> y luego <b>Agregar a la pantalla principal</b> (o <b>Instalar app</b>).';
+      : 'Para dejar el ícono en su celular toque <b>Instalar en este celular</b>. Si no aparece: en Chrome, menú <b>⋮</b> → <b>Instalar app</b> o <b>Agregar a la pantalla principal</b>; en Samsung Internet, el ícono de instalar junto a la dirección.';
   }
 </script>
 </body>
